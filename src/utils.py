@@ -1,11 +1,8 @@
 """
 Вспомогательные функции.
 """
-
-# стандартная библиотека
-from configparser import ConfigParser
-# проект
 import data
+from configparser import ConfigParser
 
 
 def read_players() -> bool:
@@ -25,5 +22,9 @@ def read_players() -> bool:
 
 def write_players() -> None:
     """Записывает в файл данных игроков информацию из соответствующей глобальной структуры данных."""
+    config = ConfigParser()
+    config.read_dict(data.players_db)
+    with open(data.PLAYERS_PATH, 'a', encoding='utf-8') as file:
+        config.write(file)
 
 
