@@ -1,8 +1,6 @@
-"""
-Вспомогательные функции.
-"""
 import data
 from configparser import ConfigParser
+from pathlib import Path
 
 
 def read_players() -> bool:

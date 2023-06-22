@@ -2,7 +2,6 @@
 Работа с данными игроков.
 """
 
-# проект
 import data
 import utils
 

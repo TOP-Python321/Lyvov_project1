@@ -1,12 +1,8 @@
-"""
-Точка входа: управляющий код.
-"""
-
-# проект
 import data
-import game
-import player
+import help
 import utils
+import player
+import game
 
 
 # 1. Чтение файлов данных
