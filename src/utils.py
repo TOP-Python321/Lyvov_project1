@@ -42,3 +42,12 @@ def write_players() -> None:
         config.write(file)
 
 
+def write_saves() -> None:
+    """ """
+
+
+def change_dim(new_dim: int) -> None:
+    """ """
+    data.dim = new_dim
+    data.dim_range = range(new_dim)
+    data.all_cells = new_dim**2
