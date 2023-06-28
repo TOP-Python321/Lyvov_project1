@@ -22,6 +22,7 @@ def write_players() -> None:
     """Записывает в файл данных игроков информацию из соответствующей глобальной структуры данных."""
     config = ConfigParser()
     config.read_dict(data.players_db)
+    # ИСПРАВИТЬ: функция read_players() читает в словарь data.players_db всё содержимое файла, затем здесь вы читаете в конфиг-объект весь словарь data.players_db — следовательно вам надо файл перезаписывать, а не дозаписывать
     with open(data.PLAYERS_PATH, 'a', encoding='utf-8') as file:
         config.write(file)
 
