@@ -1,8 +1,10 @@
 """
 Настройка партии и игровой процесс.
 """
-
+# стандартная библиотека
+from shutil import get_terminal_size
 # проект
+import bot
 import data
 import utils
 
@@ -23,27 +25,55 @@ def get_human_turn() -> int | None:
                     return turn
 
 
+def get_bot_turn() -> int:
+    """"""
+
+
 def game() -> list[str] | None:
     """Контроллер игрового процесса."""
+    data.field = utils.field_template()
+    data.START_MATRICES = (
+        bot.calc_sm_cross(),
+        bot.calc_sm_zero()
+    )
     # 9. Цикл до максимального количества ходов
     for t in range(len(data.turns), data.all_cells):
         o = t % 2
 
         ...
 
-        # 10. Запрос хода игрока
-        turn = get_human_turn()
+        if data.players[o].startswith('#'):
+            # 10. Расчёт хода бота
+            turn = get_bot_turn()
+        else:
+            # 10. Запрос хода игрока
+            turn = get_human_turn()
         # а) ЕСЛИ ввод пустой:
         if turn is None:
             # сохранение незавершённой партии
-            ...
+            save()
             # переход к этапу 4
             return None
 
+        # 11. Обновление глобальных переменных (опционально: выполнение автосохранения и обновление файлов данных)
         ...
 
+        # 12. Вывод игрового поля со сделанным ходом
+        # noinspection PyTypeChecker
+        print_board(o)
+
+        # 13. ЕСЛИ есть победная комбинация:
+        #          переход к этапу 14
+        #     ЕСЛИ нет победной комбинации:
+        #           переход к этапу 9
+        ...
+
+        # победа и поражение
+        clear()
+        return data.players
     else:
         # ничья
+        clear()
         return []
 
 
@@ -52,3 +82,13 @@ def load(players: tuple[str, str], save: dict) -> None:
     data.players = list(players)
     data.turns = save['turns']
     utils.change_dim(save['dim'])
+
+
+def save() -> None:
+    """"""
+    data.saves_db |= {
+        tuple(data.players): {
+            'dim': data.dim,
+            'turns': data.turns
+        }
+    }
