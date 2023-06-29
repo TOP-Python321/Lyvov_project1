@@ -18,6 +18,7 @@ Matrix = Sequence[Series]
 
 def easy_mode() -> int:
     """Возвращает номер случайной свободной клетки игрового поля."""
+    return choice(list(set(data.board) - set(data.turns)))
 
 
 def hard_mode() -> int:
