@@ -12,6 +12,9 @@ PLAYERS_PATH = Path(r'..\data\players.ini')
 SAVES_PATH = Path(r'..\data\saves.txt')
 HELP_PATH = Path(r'..\data\help.txt')
 
+TITLE = 'КРЕСТИКИ-НОЛИКИ'
+HELP_TITLE = 'ПОМОЩЬ'
+
 
 DEBUG = True
 debug_data = {}
