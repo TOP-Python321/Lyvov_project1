@@ -1,8 +1,9 @@
 # стандартная библиотека
 from configparser import ConfigParser
-from pathlib import Path
+from shutil import get_terminal_size
 # проект
 import data
+import help
 
 
 
@@ -75,6 +76,15 @@ def field_template(data_width: int = None) -> str:
     v_sep = v_sep.join([' {} ']*data.dim)
     h_sep = f'\n{h_sep*field_width}\n'
     return h_sep.join([v_sep]*data.dim)
+
+
+def show_title() -> None:
+    """Выводит на экран заголовок игры при запуске программы"""
+    width = get_terminal_size().columns - 1
+    line1 = f"{'#' * width}"
+    line2 = f"\n#{' ' * (width-2)}#\n"
+    text_line = f"#{'Игра КРЕСТИКИ-X НОЛИКИ-O'.center(width - 2)}#"
+    print(line1+line2+text_line+line2+line1)
 
 
 def concatenate_rows(
