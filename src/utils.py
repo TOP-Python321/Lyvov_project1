@@ -1,6 +1,9 @@
-import data
+# стандартная библиотека
 from configparser import ConfigParser
 from pathlib import Path
+# проект
+import data
+
 
 
 def read_players() -> bool:
@@ -19,15 +22,15 @@ def read_players() -> bool:
 
 
 def read_saves() -> None:
-    """ Читает сохраненную партию """
-    saves = data.SAVES_PATH.read_text(encoding='utf-8').split('/n')
+    """"""
+    saves = data.SAVES_PATH.read_text(encoding='utf-8').split('\n')
     for save in saves:
         players, turns, dim = save.split('!')
         data.saves_db |= {
             tuple(players.split(',')): {
                 'dim': int(dim),
                 'turns': {
-                    int(turn): data.TOKENS[i % 2]
+                    int(turn): data.TOKENS[i%2]
                     for i, turn in enumerate(turns.split(','))
                 },
             }
@@ -53,8 +56,22 @@ def dim_input() -> int:
             return int(dim)
         print(f' {data.MESSAGES["некорректная размерность"]} ')
 
+
 def change_dim(new_dim: int) -> None:
-    """ """
+    """"""
     data.dim = new_dim
     data.dim_range = range(new_dim)
     data.all_cells = new_dim**2
+    data.board = dict.fromkeys(range(1, data.all_cells+1), ' ')
+
+
+def field_template(data_width: int = None) -> str:
+    """"""
+    if data_width is None:
+        field_width = data.dim*(3 + max(len(t) for t in data.TOKENS)) - 1
+    else:
+        field_width = data.dim*(3 + data_width) - 1
+    v_sep, h_sep = '|', '—'
+    v_sep = v_sep.join([' {} ']*data.dim)
+    h_sep = f'\n{h_sep*field_width}\n'
+    return h_sep.join([v_sep]*data.dim)
