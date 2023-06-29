@@ -10,6 +10,7 @@ from re import compile
 
 PLAYERS_PATH = Path(r'..\data\players.ini')
 SAVES_PATH = Path(r'..\data\saves.txt')
+HELP_PATH = Path(r'..\data\help.txt')
 
 
 DEBUG = True
